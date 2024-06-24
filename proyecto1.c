@@ -9,7 +9,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-// INICIALIZARCION DE VARIABLES PARA CADA PARTE DE LA INTERFAZ
+// INICIALIZACION DE VARIABLES PARA CADA PARTE DE LA INTERFAZ
 GtkWidget *window;
 GtkWidget *grid;
 
@@ -45,14 +45,12 @@ int main(int argc, char *argv[]){
     builder = gtk_builder_new_from_file ("proyecto1.glade");
     
     window = GTK_WIDGET (gtk_builder_get_object(builder, "window"));
-
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
     gtk_builder_connect_signals(builder, NULL);
 
+    // Se asignan variables a cada parte de la interfaz
     grid = GTK_WIDGET(gtk_builder_get_object(builder, "grid"));
 
-    // Botones
     a1 = GTK_WIDGET(gtk_builder_get_object(builder, "a1"));
     b1 = GTK_WIDGET(gtk_builder_get_object(builder, "b1"));
     c1 = GTK_WIDGET(gtk_builder_get_object(builder, "c1"));
@@ -70,7 +68,6 @@ int main(int argc, char *argv[]){
 
     // Terminar el programa
     return EXIT_SUCCESS;
-
 }
 
 // FUNCIONES //
@@ -94,13 +91,13 @@ void cambiar_letra(GtkWidget *boton){
     const gchar *etiqueta = gtk_button_get_label (GTK_BUTTON(boton));
 
     if (etiqueta == NULL){ // Solo la cambia si no se ha cambiado antes
-        
         if (turno % 2 == 0){
             gtk_button_set_label(GTK_BUTTON(boton), "O");
         }
         else {
             gtk_button_set_label(GTK_BUTTON(boton), "X");
         }
+        turno ++; // Solo se cuenta el turno si se hizo clic en un espacio valido
     }
 }
 
@@ -126,7 +123,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -137,7 +134,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_b1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -148,7 +145,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_c1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -159,7 +156,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -170,7 +167,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a2,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -181,7 +178,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a3,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -192,7 +189,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -203,7 +200,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a3,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else{
+        else if(g_strcmp0(etiq_a3,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -251,11 +248,9 @@ void revisar_empate(){
 
 void turno_completo(GtkWidget *boton){
     // Las acciones que se hacen en cada turno
-
     cambiar_letra(boton);
     bool gana = revisar_gane();
     if (gana == false) revisar_empate(); // Solo se revisa empate si nadie gano
-    turno ++;
 }
 
 // BOTONES //
@@ -270,7 +265,7 @@ void on_b1_clicked (GtkButton *b){
 void on_c1_clicked (GtkButton *b){
     turno_completo(c1);
 }
-// ------------
+
 void on_a2_clicked (GtkButton *b){
     turno_completo(a2);
 }
@@ -283,7 +278,6 @@ void on_c2_clicked (GtkButton *b){
     turno_completo(c2);
 }
 
-// ------------
 void on_a3_clicked (GtkButton *b){
     turno_completo(a3);
 }
