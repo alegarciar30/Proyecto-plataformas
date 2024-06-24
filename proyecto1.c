@@ -123,7 +123,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else if(g_strcmp0(etiq_a3,"O") == 0){
+        else if(g_strcmp0(etiq_a1,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -134,7 +134,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_b1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else if(g_strcmp0(etiq_a3,"O") == 0){
+        else if(g_strcmp0(etiq_b1,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -145,7 +145,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_c1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else if(g_strcmp0(etiq_a3,"O") == 0){
+        else if(g_strcmp0(etiq_c1,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -156,7 +156,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else if(g_strcmp0(etiq_a3,"O") == 0){
+        else if(g_strcmp0(etiq_a1,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -167,7 +167,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a2,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else if(g_strcmp0(etiq_a3,"O") == 0){
+        else if(g_strcmp0(etiq_a2,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
@@ -189,7 +189,7 @@ bool revisar_gane(){
         if(g_strcmp0(etiq_a1,"X") == 0){
             imprimir_mensaje("Gana X");
         }
-        else if(g_strcmp0(etiq_a3,"O") == 0){
+        else if(g_strcmp0(etiq_a1,"O") == 0){
             imprimir_mensaje("Gana O");
         } 
         return true;
