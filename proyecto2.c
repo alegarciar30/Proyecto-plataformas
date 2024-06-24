@@ -45,7 +45,7 @@ int main() {
     for (x = x_start; x <= x_end; x += step) {
         double f1_val = f1(x, a, b, c);
         double f2_val = f2(x, d, e, f);
-        double error = (fabs(f1_val - f2_val) / fabs(f1_val)) * 100;
+        double error = fabs(f1_val - f2_val) / fabs(f1_val) * 100;
 
         if (error <= error_percentage) {
             if (!found) {
@@ -63,28 +63,50 @@ int main() {
     // Generar los datos para la gráfica
     generate_data("data.txt", a, b, c, d, e, f, step, x_start, x_end);
 
-    // Crear el script de Gnuplot
-    FILE *gnuplotScript = fopen("plot.gnuplot", "w");
+    // Crear el script de Gnuplot para el dominio completo
+    FILE *gnuplotScript = fopen("datos_full.gnuplot", "w");
     fprintf(gnuplotScript, "set terminal png\n");
-    fprintf(gnuplotScript, "set output 'graph.png'\n");
-    fprintf(gnuplotScript, "set title 'Comparacion de Funciones Cuadraticas'\n");
+    fprintf(gnuplotScript, "set output 'grafico_full.png'\n");
+    fprintf(gnuplotScript, "set title 'Comparacion de Funciones Cuadraticas - Dominio Completo'\n");
     fprintf(gnuplotScript, "set xlabel 'X'\n");
     fprintf(gnuplotScript, "set ylabel 'Y'\n");
     fprintf(gnuplotScript, "plot 'data.txt' using 1:2 with lines title 'Funcion 1', \\\n");
     fprintf(gnuplotScript, "     'data.txt' using 1:3 with lines title 'Funcion 2', \\\n");
     fprintf(gnuplotScript, "     '-' using 1:2 with lines lt rgb 'red' title 'Subdominio Inicio', \\\n");
     fprintf(gnuplotScript, "     '-' using 1:2 with lines lt rgb 'red' title 'Subdominio Fin'\n");
-    fprintf(gnuplotScript, "%lf %lf\n", subdomain_start, -10000000.0);
-    fprintf(gnuplotScript, "%lf %lf\n", subdomain_start, 10000000.0);
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_start, -100.0);
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_start, 100.0);
     fprintf(gnuplotScript, "e\n");
-    fprintf(gnuplotScript, "%lf %lf\n", subdomain_end, -10000000.0);
-    fprintf(gnuplotScript, "%lf %lf\n", subdomain_end, 10000000.0);
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_end, -100.0);
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_end, 100.0);
     fprintf(gnuplotScript, "e\n");
     fclose(gnuplotScript);
 
-    // Ejecutar Gnuplot
-    system("gnuplot plot.gnuplot");
+    // Crear el script de Gnuplot para el subdominio
+    double narrow_start = subdomain_start - 1.0;
+    double narrow_end = subdomain_end + 1.0;
+    gnuplotScript = fopen("datos_sub.gnuplot", "w");
+    fprintf(gnuplotScript, "set terminal png\n");
+    fprintf(gnuplotScript, "set output 'grafico_sub.png'\n");
+    fprintf(gnuplotScript, "set title 'Comparacion de Funciones Cuadraticas - Subdominio'\n");
+    fprintf(gnuplotScript, "set xlabel 'X'\n");
+    fprintf(gnuplotScript, "set ylabel 'Y'\n");
+    fprintf(gnuplotScript, "set xrange [%lf:%lf]\n", narrow_start, narrow_end);
+    fprintf(gnuplotScript, "plot 'data.txt' using 1:2 with lines title 'Funcion 1', \\\n");
+    fprintf(gnuplotScript, "     'data.txt' using 1:3 with lines title 'Funcion 2', \\\n");
+    fprintf(gnuplotScript, "     '-' using 1:2 with lines lt rgb 'red' title 'Subdominio Inicio', \\\n");
+    fprintf(gnuplotScript, "     '-' using 1:2 with lines lt rgb 'yellow' title 'Subdominio Fin'\n");
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_start, -100.0);
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_start, 300.0);
+    fprintf(gnuplotScript, "e\n");
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_end, -100.0);
+    fprintf(gnuplotScript, "%lf %lf\n", subdomain_end, 300.0);
+    fprintf(gnuplotScript, "e\n");
+    fclose(gnuplotScript);
+
+    // Ejecutar Gnuplot para ambas gráficas
+    system("gnuplot datos_full.gnuplot");
+    system("gnuplot datos_sub.gnuplot");
 
     return 0;
 }
-
