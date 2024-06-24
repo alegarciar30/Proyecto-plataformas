@@ -13,3 +13,5 @@
 #$./exe
 #Siendo esta la manera en que se solicita. Además, si se gusta, se puede utilizar el siguiente comando para compilar y ejecutar a la vez:
 #$make eje2
+
+#También se puede utilizar el comando "make clean" para eliminar los archivos generados por las compilaciones.
