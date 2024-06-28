@@ -59,6 +59,7 @@ int main() {
     }
 
     printf("Subdominio encontrado: [%lf, %lf]\n", subdomain_start, subdomain_end);
+    printf("Para observar los gráficos, busque en la carpeta donde se encuentra el programa los archivos con nombre: grafico_full.png y grafico_sub.png\n");
 
     // Generar los datos para la gráfica
     generate_data("data.txt", a, b, c, d, e, f, step, x_start, x_end);
